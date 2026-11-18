@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Place the Note</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <a id="back" class="back" href="instrument.html">&larr; Activities</a>
+  <header>
+    <div id="eyebrow" class="eyebrow"></div>
+    <h1>Place the Note</h1>
+    <p>You are given a note name. Tap or click the stave where that note belongs.</p>
+  </header>
+
+  <section class="card" aria-label="Practice note">
+    <div id="noteName" class="note-name" role="status" aria-live="polite">B&#9837;<span class="oct">3</span></div>
+    <svg id="stave" class="stave pick" tabindex="0" role="application"
+         aria-label="Bass clef stave. Use the up and down arrow keys to choose a pitch, then press Enter to place the note."></svg>
+    <div class="status" aria-live="polite">
+      <span id="msg" class="msg">Tap or click the stave to place the note.</span>
+      <button id="next" class="alt-btn" type="button" hidden>Next note</button>
+    </div>
+  </section>
+  <div id="sr" class="sr" aria-live="polite"></div>
+
+  <section class="controls" aria-label="Answer">
+    <div class="field" id="accField" hidden>
+      <div class="field-head"><span class="label" id="accLabel">Sharp or flat? Choose before you place the note.</span></div>
+      <div class="seg" role="group" aria-labelledby="accLabel">
+        <button type="button" data-acc="" aria-pressed="true" aria-label="Natural">&#9838;</button>
+        <button type="button" data-acc="#" aria-pressed="false" aria-label="Sharp">&#9839;</button>
+        <button type="button" data-acc="b" aria-pressed="false" aria-label="Flat">&#9837;</button>
+      </div>
+    </div>
+    <p id="hint" class="hint"></p>
+
+    <div class="scorebar">
+      <span id="score">Score 0 / 0 &middot; Streak 0</span>
+      <button id="reset" class="link-btn" type="button">Reset score</button>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Settings">
+    <div class="field">
+      <div class="field-head"><label for="range">Range</label></div>
+      <select id="range"></select>
+    </div>
+    <label class="switch" for="accidentals">
+      <input id="accidentals" type="checkbox" role="switch">
+      <span class="track" aria-hidden="true"></span>
+      <span>Include sharps and flats</span>
+    </label>
+    <label class="switch" for="sound">
+      <input id="sound" type="checkbox" role="switch" checked>
+      <span class="track" aria-hidden="true"></span>
+      <span>Play the note when I answer</span>
+    </label>
+  </section>
+
+  <footer id="footnote"></footer>
+</div>
+
+<script src="common.js"></script>
+<script src="instruments.js"></script>
+<script src="place-the-note.js"></script>
+</body>
+</html>

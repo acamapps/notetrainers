@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Note Practice</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; All instruments</a>
+  <header>
+    <div id="eyebrow" class="eyebrow"></div>
+    <h1 id="title">Note Practice</h1>
+    <p id="blurb"></p>
+  </header>
+
+  <nav id="activities" class="menu" aria-label="Activities"></nav>
+
+  <footer id="footnote"></footer>
+</div>
+
+<script src="common.js"></script>
+<script src="instruments.js"></script>
+<script>
+(function () {
+  var inst = TN.getInstrument();
+  var q = "?i=" + inst.id;
+  document.title = inst.name + " · Note Practice";
+  document.getElementById("eyebrow").textContent = inst.clef + " clef";
+  document.getElementById("title").textContent = inst.name;
+  document.getElementById("blurb").textContent = inst.blurb;
+  document.getElementById("footnote").textContent = inst.soundNote;
+
+  var full = inst.ranges.full.short, trainer = inst.ranges[inst.trainerRange].short;
+  var acts = [
+    { href: "note-trainer.html", title: "Note Trainer",
+      text: "See a note and its name, think how it sounds, then hear it after a delay you choose.",
+      meta: "Listening · " + trainer, demo: inst.demo.trainer, withOct: false, label: null },
+    { href: "name-the-note.html", title: "Name the Note",
+      text: "A note appears on the stave. Pick its name, and hear it once you answer.",
+      meta: "Reading · " + full, demo: inst.demo.name, withOct: false, label: "?" },
+    { href: "place-the-note.html", title: "Place the Note",
+      text: "You are given a note name. Tap or click where it belongs on the stave.",
+      meta: "Writing · " + full, demo: inst.demo.place, withOct: true, label: null, cls: "ghost" }
+  ];
+
+  var nav = document.getElementById("activities");
+  acts.forEach(function (a) {
+    var el = document.createElement("a");
+    el.className = "tile";
+    el.href = a.href + q;
+    el.innerHTML =
+      '<svg class="stave" aria-hidden="true"></svg>' +
+      "<div><h2>" + a.title + "</h2><p>" + a.text + '</p><span class="tile-meta">' + a.meta + "</span></div>";
+    nav.appendChild(el);
+    var d = a.demo;
+    var label = a.label || (d[0] + TN.accSymbol(d[1]) + (a.withOct ? d[2] : ""));
+    TN.mini(el.querySelector("svg"), inst, d, label, a.cls);
+  });
+})();
+</script>
+</body>
+</html>

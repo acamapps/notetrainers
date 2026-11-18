@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Note Trainer</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <a id="back" class="back" href="instrument.html">&larr; Activities</a>
+  <header>
+    <div id="eyebrow" class="eyebrow"></div>
+    <h1>Note Trainer</h1>
+    <p>Read the note, name it in your head, then check yourself against the sound.</p>
+  </header>
+
+  <section class="card" aria-label="Practice note">
+    <div id="noteName" class="note-name" role="status" aria-live="polite">F</div>
+    <svg id="stave" class="stave" role="img" aria-label="Bass clef stave showing the current note"></svg>
+    <div class="status">
+      <span id="stateText" class="state">Ready. Press Start.</span>
+      <span id="count" class="count" hidden>5</span>
+    </div>
+    <div class="bar" aria-hidden="true"><div id="barFill" class="bar-fill"></div></div>
+  </section>
+
+  <section class="controls" aria-label="Controls">
+    <button id="startBtn" class="go" type="button">Start</button>
+
+    <div class="field">
+      <div class="field-head">
+        <label for="delay">Delay before the note sounds</label>
+        <output id="delayOut" for="delay">5 s</output>
+      </div>
+      <input id="delay" type="range" min="1" max="10" step="1" value="5">
+      <div class="ends"><span>1 s</span><span>10 s</span></div>
+      <p class="hint">Changes apply from the next note.</p>
+    </div>
+
+    <label class="switch" for="accidentals">
+      <input id="accidentals" type="checkbox" role="switch">
+      <span class="track" aria-hidden="true"></span>
+      <span>Include sharps and flats</span>
+    </label>
+
+    <label class="switch" for="showStave">
+      <input id="showStave" type="checkbox" role="switch" checked>
+      <span class="track" aria-hidden="true"></span>
+      <span>Show the stave</span>
+    </label>
+  </section>
+
+  <footer id="footnote"></footer>
+</div>
+
+<script src="common.js"></script>
+<script src="instruments.js"></script>
+<script src="note-trainer.js"></script>
+</body>
+</html>

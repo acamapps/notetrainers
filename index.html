@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Note Practice</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Choose your instrument</div>
+    <h1>Note Practice</h1>
+    <p>Read the stave, name the notes and hear how they sound on your instrument.</p>
+  </header>
+
+  <nav id="instruments" class="menu" aria-label="Instruments"></nav>
+
+  <footer>Runs entirely in your browser. Nothing is saved or sent anywhere.</footer>
+</div>
+
+<script src="common.js"></script>
+<script src="instruments.js"></script>
+<script>
+(function () {
+  var list = document.getElementById("instruments");
+  TN.INSTRUMENT_ORDER.forEach(function (id) {
+    var inst = TN.INSTRUMENTS[id];
+    var a = document.createElement("a");
+    a.className = "tile";
+    a.href = "instrument.html?i=" + id;
+    a.innerHTML =
+      '<svg class="stave" aria-hidden="true"></svg>' +
+      "<div><h2>" + inst.name + "</h2><p>" + inst.blurb + '</p>' +
+      '<span class="tile-meta">' + inst.clef + " clef</span></div>";
+    list.appendChild(a);
+    var d = inst.demo.trainer;
+    TN.mini(a.querySelector("svg"), inst, d, d[0] + TN.accSymbol(d[1]));
+  });
+})();
+</script>
+</body>
+</html>
