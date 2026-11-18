@@ -19,7 +19,7 @@
   TN.INSTRUMENTS = {
     trombone: {
       id: "trombone",
-      name: "Trombone",
+      name: "Trombone 🪊",
       clef: "bass",
       transpose: 0,
       timbre: "brass",
@@ -38,7 +38,7 @@
 
     tenorsax: {
       id: "tenorsax",
-      name: "Tenor saxophone",
+      name: "Tenor saxophone 🎷",
       clef: "treble",
       transpose: -14,
       timbre: "sax",
