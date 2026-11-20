@@ -319,4 +319,11 @@
     audio: audio
   };
   for (var k in api) { if (api.hasOwnProperty(k)) window.TN[k] = api[k]; }
+
+  // Work offline: after one visit online, the site is kept on the device (see service-worker.js).
+  if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("service-worker.js").catch(function () {});
+    });
+  }
 })();
