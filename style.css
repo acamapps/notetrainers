@@ -213,3 +213,6 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule)
   .pick-art img { transition: none; }
   .pick:hover .pick-art img, .pick:focus-visible .pick-art img { transform: none; }
 }
+
+/* ----- credit line ----- */
+.credit { font-size: 12px; letter-spacing: 0.04em; text-align: center; color: var(--muted); }
