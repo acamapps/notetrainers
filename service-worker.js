@@ -24,8 +24,8 @@ var FILES = [
   "apple-touch-icon.png",
   "icon-512.png",
   "manifest.webmanifest",
-  "images/trombone.svg",
-  "images/tenorsax.svg"
+  "images/trombone.png",
+  "images/tenorsax.png"
 ];
 
 self.addEventListener("install", function (e) {
