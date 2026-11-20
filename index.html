@@ -32,15 +32,17 @@
 <script src="common.js"></script>
 <script src="instruments.js"></script>
 <script>
-/* One card per instrument in instruments.js. The picture comes from the instrument's
-   "image" setting. If there is no image, or the file cannot be loaded, a drawn stave is shown instead. */
+/* One picture card per instrument in instruments.js. The card is only the picture, which comes from the
+   instrument's "image" setting. If there is no image, or the file cannot be loaded, a drawn stave with the
+   instrument's name is shown instead, so the card is never blank. */
 (function () {
   var list = document.getElementById("instruments");
 
   function plain(art, inst) {
     var d = inst.demo.trainer;
     art.className = "pick-art plain";
-    art.innerHTML = '<svg class="stave" aria-hidden="true"></svg>';
+    art.innerHTML = '<svg class="stave" aria-hidden="true"></svg>' +
+      '<div class="pick-name">' + (inst.emoji ? inst.emoji + " " : "") + inst.name + "</div>";
     TN.mini(art.querySelector("svg"), inst, d, d[0] + TN.accSymbol(d[1]));
   }
 
@@ -49,12 +51,13 @@
     var a = document.createElement("a");
     a.className = "pick";
     a.href = "instrument.html?i=" + id;
+    a.title = inst.name;
 
     var art = document.createElement("div");
     art.className = "pick-art";
     if (inst.image) {
       var img = document.createElement("img");
-      img.alt = "";                                   // decorative: the name is in the heading
+      img.alt = inst.name;                            // the card has no text, so this names the link
       img.decoding = "async";
       if (inst.imageFocus) img.style.objectPosition = inst.imageFocus;
       img.addEventListener("error", function () { plain(art, inst); });
@@ -64,15 +67,6 @@
       plain(art, inst);
     }
     a.appendChild(art);
-
-    var body = document.createElement("div");
-    body.className = "pick-body";
-    body.innerHTML =
-      "<h2>" + (inst.emoji ? inst.emoji + " " : "") + inst.name + "</h2>" +
-      "<p>" + inst.blurb + "</p>" +
-      '<div class="pick-meta"><span>' + inst.clef + ' clef</span><span class="pick-go">Choose &rarr;</span></div>';
-    a.appendChild(body);
-
     list.appendChild(a);
   });
 })();
