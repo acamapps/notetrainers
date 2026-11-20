@@ -23,7 +23,9 @@ var FILES = [
   "favicon.svg",
   "apple-touch-icon.png",
   "icon-512.png",
-  "manifest.webmanifest"
+  "manifest.webmanifest",
+  "images/trombone.svg",
+  "images/tenorsax.svg"
 ];
 
 self.addEventListener("install", function (e) {
