@@ -17,14 +17,14 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
+<div class="wrap wide">
   <header>
     <div class="eyebrow">Choose your instrument</div>
     <h1>Note Practice</h1>
     <p>Read the stave, name the notes and hear how they sound on your instrument.</p>
   </header>
 
-  <nav id="instruments" class="menu" aria-label="Instruments"></nav>
+  <nav id="instruments" class="picker" aria-label="Instruments"></nav>
 
   <footer>Runs entirely in your browser. Nothing is saved or sent anywhere.</footer>
 </div>
@@ -32,20 +32,48 @@
 <script src="common.js"></script>
 <script src="instruments.js"></script>
 <script>
+/* One card per instrument in instruments.js. The picture comes from the instrument's
+   "image" setting. If there is no image, or the file cannot be loaded, a drawn stave is shown instead. */
 (function () {
   var list = document.getElementById("instruments");
+
+  function plain(art, inst) {
+    var d = inst.demo.trainer;
+    art.className = "pick-art plain";
+    art.innerHTML = '<svg class="stave" aria-hidden="true"></svg>';
+    TN.mini(art.querySelector("svg"), inst, d, d[0] + TN.accSymbol(d[1]));
+  }
+
   TN.INSTRUMENT_ORDER.forEach(function (id) {
     var inst = TN.INSTRUMENTS[id];
     var a = document.createElement("a");
-    a.className = "tile";
+    a.className = "pick";
     a.href = "instrument.html?i=" + id;
-    a.innerHTML =
-      '<svg class="stave" aria-hidden="true"></svg>' +
-      "<div><h2>" + inst.name + "</h2><p>" + inst.blurb + '</p>' +
-      '<span class="tile-meta">' + inst.clef + " clef</span></div>";
+
+    var art = document.createElement("div");
+    art.className = "pick-art";
+    if (inst.image) {
+      var img = document.createElement("img");
+      img.alt = "";                                   // decorative: the name is in the heading
+      img.decoding = "async";
+      if (inst.imageFocus) img.style.objectPosition = inst.imageFocus;
+      img.addEventListener("error", function () { plain(art, inst); });
+      img.src = inst.image;
+      art.appendChild(img);
+    } else {
+      plain(art, inst);
+    }
+    a.appendChild(art);
+
+    var body = document.createElement("div");
+    body.className = "pick-body";
+    body.innerHTML =
+      "<h2>" + (inst.emoji ? inst.emoji + " " : "") + inst.name + "</h2>" +
+      "<p>" + inst.blurb + "</p>" +
+      '<div class="pick-meta"><span>' + inst.clef + ' clef</span><span class="pick-go">Choose &rarr;</span></div>';
+    a.appendChild(body);
+
     list.appendChild(a);
-    var d = inst.demo.trainer;
-    TN.mini(a.querySelector("svg"), inst, d, d[0] + TN.accSymbol(d[1]));
   });
 })();
 </script>
