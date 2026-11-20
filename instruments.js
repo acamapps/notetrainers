@@ -20,6 +20,7 @@
     trombone: {
       id: "trombone",
       name: "Trombone 🪊",
+      image: "images/trombone.svg",
       clef: "bass",
       transpose: 0,
       timbre: "brass",
@@ -39,6 +40,7 @@
     tenorsax: {
       id: "tenorsax",
       name: "Tenor saxophone 🎷",
+      image: "images/tenorsax.svg",
       clef: "treble",
       transpose: -14,
       timbre: "sax",
