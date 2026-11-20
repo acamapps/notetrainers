@@ -3,6 +3,9 @@
 (function () {
   "use strict";
 
+ // Credit line shown at the bottom of every page. Change the text here, for example for a new version.
+  var SITE_CREDIT = "acamapps 2-26 v1.1";
+   
   var LETTERS = ["C", "D", "E", "F", "G", "A", "B"];
   var SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
   var ACC = { "": 0, "#": 1, "b": -1 };
@@ -326,4 +329,20 @@
       navigator.serviceWorker.register("service-worker.js").catch(function () {});
     });
   }
+
+   // Credit line at the bottom of every page.
+  function addCredit() {
+    var wrap = document.querySelector(".wrap");
+    if (!wrap || wrap.querySelector(".credit")) return;
+    var el = document.createElement("div");
+    el.className = "credit";
+    el.textContent = SITE_CREDIT;
+    wrap.appendChild(el);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", addCredit);
+  else addCredit();
+   
 })();
+
+/* ----- credit line ----- */
+.credit { font-size: 12px; letter-spacing: 0.04em; text-align: center; color: var(--muted); }
