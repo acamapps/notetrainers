@@ -343,6 +343,3 @@
   else addCredit();
    
 })();
-
-/* ----- credit line ----- */
-.credit { font-size: 12px; letter-spacing: 0.04em; text-align: center; color: var(--muted); }
