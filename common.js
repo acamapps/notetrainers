@@ -4,7 +4,7 @@
   "use strict";
 
  // Credit line shown at the bottom of every page. Change the text here, for example for a new version.
-  var SITE_CREDIT = "acamapps 2026 v1.1";
+  var SITE_CREDIT = "acamapps 2026 v1.2";
    
   var LETTERS = ["C", "D", "E", "F", "G", "A", "B"];
   var SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
