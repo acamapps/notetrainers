@@ -40,11 +40,33 @@
   }
 
   /* ----- pointer to stave step ----- */
-  function dnAt(e) {
+  // Touch is steadied in two ways, because a fingertip is wide and rolls a little as it lifts:
+  //  - the preview only moves to a new step once the finger is clearly past the halfway line
+  //    (STICKY steps beyond it), so it does not flicker between two neighbouring lines;
+  //  - the note placed is the step shown LIFT_MS before the finger left the screen, not wherever
+  //    the finger happened to be on the final frame.
+  // Both numbers can be changed: a bigger STICKY or LIFT_MS makes touch less sensitive.
+  var STICKY = 0.25, LIFT_MS = 80;
+  var curDn = null, samples = [];
+
+  function floatStep(e) {
     var pt = svg.createSVGPoint();
     pt.x = e.clientX; pt.y = e.clientY;
     var p = pt.matrixTransform(svg.getScreenCTM().inverse());
-    return clamp(stave.stepAt(p.y));
+    return (48 - p.y) / 6 + stave.midStep - 4;      // midStep is the middle line, 4 steps above the bottom line
+  }
+  function track(e, first) {
+    var f = floatStep(e);
+    if (first || e.pointerType === "mouse" || Math.abs(f - curDn) > 0.5 + STICKY) curDn = clamp(Math.round(f));
+    samples.push({ t: performance.now(), dn: curDn });
+    if (samples.length > 40) samples.shift();
+    return curDn;
+  }
+  function settledDn(e) {
+    if (e.pointerType === "mouse") return clamp(Math.round(floatStep(e)));
+    var cutoff = performance.now() - LIFT_MS, dn = samples.length ? samples[0].dn : curDn;
+    for (var i = 0; i < samples.length; i++) { if (samples[i].t <= cutoff) dn = samples[i].dn; }
+    return dn;
   }
   function showGhost(dn, speak) {
     ghostDn = dn;
