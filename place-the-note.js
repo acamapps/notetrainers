@@ -123,18 +123,19 @@
   /* ----- events ----- */
   svg.addEventListener("pointermove", function (e) {
     if (answered) return;
-    if (e.pointerType === "mouse" || pressed) showGhost(dnAt(e), false);
+    if (e.pointerType === "mouse" || pressed) showGhost(track(e, false), false);
   });
   svg.addEventListener("pointerdown", function (e) {
     if (answered) return;
     pressed = true;
+    samples = [];
     if (svg.setPointerCapture) { try { svg.setPointerCapture(e.pointerId); } catch (err) {} }
-    showGhost(dnAt(e), false);
+    showGhost(track(e, true), false);
   });
   svg.addEventListener("pointerup", function (e) {
     if (!pressed) return;
     pressed = false;
-    if (!answered) commit(dnAt(e));
+    if (!answered) commit(settledDn(e));
   });
   svg.addEventListener("pointercancel", function () { pressed = false; clearGhost(); });
   svg.addEventListener("pointerleave", function (e) {
