@@ -6,7 +6,7 @@
 
    Keep FILES in step with the site: if you add a page or script, add it here. The list is
    fetched all at once, so a file that is missing from the site stops the offline copy installing. */
-var CACHE = "note-practice-v1.12";
+var CACHE = "note-practice-v1.13";
 var FILES = [
   "./",
   "index.html",
