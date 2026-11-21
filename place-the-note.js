@@ -46,7 +46,7 @@
   //  - the note placed is the step shown LIFT_MS before the finger left the screen, not wherever
   //    the finger happened to be on the final frame.
   // Both numbers can be changed: a bigger STICKY or LIFT_MS makes touch less sensitive.
-  var STICKY = 0.25, LIFT_MS = 80;
+  var STICKY = 0.35, LIFT_MS = 80;
   var curDn = null, samples = [];
 
   function floatStep(e) {
